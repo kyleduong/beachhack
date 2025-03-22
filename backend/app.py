@@ -13,7 +13,7 @@ CORS(app)
 x = datetime.datetime.now()
 
 # Route for getting data
-@app.route('/data')
+@app.route('/data', methods=["GET"])
 def get_time():
     # Returning a response as JSON for React to fetch
     return {
@@ -23,6 +23,13 @@ def get_time():
         "programming": "python"
     }
 
+"""
+# Route for getting data
+@app.route('/create_content', methods=["POST"])
+def create_contacts():
+    # code to create the contact
+    return 0
+"""
 
 # Run the Flask app
 if __name__ == '__main__':
