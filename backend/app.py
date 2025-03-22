@@ -1,15 +1,13 @@
 # backend.py
 
 from flask import Flask
-import datetime
+from config import app, db
 from flask_cors import CORS
+import datetime
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
-
-# Print statement to confirm the script is running
-print("Starting the Flask app...")
 
 # Get the current date and time
 x = datetime.datetime.now()
@@ -25,7 +23,10 @@ def get_time():
         "programming": "python"
     }
 
+
 # Run the Flask app
 if __name__ == '__main__':
+    with app.app_context:
+        db.create_all()
     print("Running the Flask app...")  # Confirm the app is starting
     app.run(debug=True)
