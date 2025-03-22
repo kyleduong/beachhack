@@ -1,0 +1,6 @@
+python-dotenv==1.0.1
+npm==0.1.0
+Flask==3.1.0
+Flask-SQLalchemy==3.1.1
+axios
+flask-cors==5.0.1
