@@ -8,6 +8,7 @@ from models import Contact
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import login_manager
 from models import User
+from werkzeug.security import check_password_hash
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -83,9 +84,13 @@ def load_user(user_id):
 
 @app.route('/login', methods=['POST'])
 def login():
-    # Dummy login for now – replace with proper auth check
-    user = User.query.filter_by(username="admin").first()
-    if user:
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
         login_user(user)
-        return {"message": "Logged in successfully"}
-    return {"message": "Invalid credentials"}, 401
+        return jsonify({'message': 'Logged in successfully'}), 200
+
+    return jsonify({'message': 'Invalid credentials'}), 401
