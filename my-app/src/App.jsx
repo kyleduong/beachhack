@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
   const [data, setData] = useState(null);  // State to store the response data
   const [loading, setLoading] = useState(true);  // State to track loading status
@@ -31,6 +32,7 @@ function App() {
 
   // Render the data when it's available
   return (
+    
     <div>
       <h1>Flask API Data</h1>
       <p>Name: {data.Name}</p>
@@ -39,6 +41,7 @@ function App() {
       <p>Programming Language: {data.programming}</p>
       <button> Click me to add another user</button>
     </div>
+    
   );
 }
 
