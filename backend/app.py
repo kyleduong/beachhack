@@ -4,6 +4,9 @@ from flask import Flask
 from config import app, db
 from flask_cors import CORS
 import datetime
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from config import login_manager
+from models import User
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -37,3 +40,16 @@ if __name__ == '__main__':
         db.create_all()
     print("Running the Flask app...")  # Confirm the app is starting
     app.run(debug=True)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/login', methods=['POST'])
+def login():
+    # Dummy login for now – replace with proper auth check
+    user = User.query.filter_by(username="admin").first()
+    if user:
+        login_user(user)
+        return {"message": "Logged in successfully"}
+    return {"message": "Invalid credentials"}, 401
