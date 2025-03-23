@@ -61,26 +61,10 @@ function Register() {
   // Register function triggered on button click
   const handleRegister = async () => {
     try {
-<<<<<<< HEAD
-        // Replace the URL with your actual login endpoint
-        const response = await axios.post('http://localhost:5000/login', { userName, password });
-        console.log("Login Handled");
-        if (response.status === 200) {
-        // Optionally, you can do something with the response (e.g., store a token)
-        // Navigate to another route, such as a dashboard or home page
-        navigate('/users');
-        }
-    } catch (err) {
-        setError('Login failed. Please check your credentials.');
-        console.error(err);
-    }
-};
-=======
       const response = await axios.post('http://localhost:5000/create', {
         userName,
         password
       });
->>>>>>> 5b0b45d85b1c55da583b511c24ef0b505456210a
 
       if (response.status === 201) {
         setMessage("✅ Registration successful!");

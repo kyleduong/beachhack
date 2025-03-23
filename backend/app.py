@@ -7,13 +7,8 @@ import datetime
 from models import Contact
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import login_manager
-<<<<<<< HEAD
 from models import User, Patient, Medication
-from werkzeug.security import check_password_hash
-=======
-from models import User
 from werkzeug.security import check_password_hash, generate_password_hash
->>>>>>> 5b0b45d85b1c55da583b511c24ef0b505456210a
 
 # Initialize Flask app
 #app = Flask(__name__)
@@ -129,7 +124,6 @@ def add_medication():
     if not all([patient_name, medication_name, prescription_provider, total_dosage]):
         return jsonify({'error': 'Missing required fields'}), 400
 
-<<<<<<< HEAD
     # Find the patient by name
     patient = Patient.query.filter_by(name=patient_name).first()
     if not patient:
@@ -148,9 +142,6 @@ def add_medication():
         'message': 'Medication added successfully',
         'medication': new_med.to_dict()
     }), 201
-=======
-    return jsonify({'message': 'Invalid credentials'}), 401
-
 
 @app.route('/create', methods=['POST'])
 def create_user():
@@ -170,4 +161,3 @@ def create_user():
     db.session.commit()
 
     return jsonify(new_user.to_dict()), 201
->>>>>>> 5b0b45d85b1c55da583b511c24ef0b505456210a
