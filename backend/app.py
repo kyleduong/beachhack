@@ -88,7 +88,7 @@ def load_user(user_id):
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data.get('username')
+    username = data.get('userName')
     password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
