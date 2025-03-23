@@ -32,13 +32,7 @@ function App() {
 
   // Render the data when it's available
   return (
-    <div className="position-fixed top-0 start-0 mt-3 me-3">
-      <h1>MedTrack</h1>
-      {data && (
-        <div>
-          <p>Welcome to MedTrack - {data.Date}</p>
-        </div>
-      )}
+    <div>
     </div>
   );
 }

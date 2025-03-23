@@ -1,173 +1,328 @@
-/* Dashboard Container */
+/* Dashboard.css - Styling for the MedTrack Dashboard */
+
 .dashboard-container {
-    position: relative;
-    width: 1440px;
-    height: 1024px;
-    background: #F3F4F6;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto auto 1fr;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f7fa;
+}
+
+/* Navbar styling */
+.navbar {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #3498db;
+  color: white;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links span {
+  cursor: pointer;
+}
+
+.nav-links span:hover {
+  text-decoration: underline;
+}
+
+.dashboard-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.join-button, .add-med-button, .search-button {
+  padding: 0.5rem 1rem;
+  background-color: #2980b9;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  color: white;
+}
+
+.join-button:hover, .add-med-button:hover, .search-button:hover {
+  background-color: #1c638e;
+}
+
+/* User greeting section */
+.user-greeting {
+  grid-column: 1 / span 2;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.greeting-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.date-text {
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+/* Medication section */
+.medication-section {
+  grid-column: 1;
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+}
+
+.medication-section h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.med-card {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-left: 5px solid #3498db;
+}
+
+.med-card.taken {
+  border-left: 5px solid #2ecc71;
+}
+
+.med-card.upcoming {
+  border-left: 5px solid #f1c40f;
+}
+
+.med-card.missed {
+  border-left: 5px solid #e74c3c;
+}
+
+.med-card p {
+  margin: 0.5rem 0;
+}
+
+.percentage-bar {
+  margin-top: 2rem;
+  background-color: #ecf0f1;
+  height: 2rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background-color: #2ecc71;
+  height: 100%;
+  width: 27%; /* Will be controlled by JS */
+  border-radius: 1rem;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-weight: bold;
+}
+
+/* Right panel */
+.right-panel {
+  grid-column: 2;
+  padding: 1.5rem;
+  background-color: #ecf0f1;
+  border-left: 1px solid #e1e4e8;
+}
+
+.symptom-log, .reminder-tab, .medical-history {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.symptom-log h3, .reminder-tab h3, .medical-history h3, .reminder-tab h4 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.symptom-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  height: 80px;
+  resize: vertical;
+}
+
+.log-symptom-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.log-symptom-btn:hover {
+  background-color: #2980b9;
+}
+
+.reminder-tab strong {
+  color: #e74c3c;
+}
+
+.reminder-tab ul, .medical-history ul {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: #3498db;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-med-modal-button, .search-modal-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.add-med-modal-button:hover, .search-modal-button:hover {
+  background-color: #2980b9;
+}
+
+.modal-message {
+  margin-top: 1rem;
+  text-align: center;
+  color: #2ecc71;
+}
+
+.error-text {
+  color: #e74c3c;
+}
+
+.search-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-container .modal-input {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.search-modal-button {
+  width: auto;
+}
+
+.search-results {
+  margin-top: 1rem;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+}
+
+.result-item {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.result-item h4 {
+  margin-top: 0;
+  color: #3498db;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
   }
   
-  /* Navbar */
-  .navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 107px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    background: #EFEFEF;
-    border-bottom: 1px solid #000;
-    backdrop-filter: blur(2px);
+  .navbar, .user-greeting {
+    grid-column: 1;
   }
   
-  .logo {
-    font-family: 'Konkhmer Sleokchher', cursive;
-    font-size: 30px;
-    color: #B997EA;
-  }
-  
-  .nav-links span {
-    margin: 0 20px;
-    font-size: 25px;
-    cursor: pointer;
-    color: #000;
-  }
-  
-  .join-button {
-    background: #D1B2FF;
-    border-radius: 35px;
-    padding: 8px 20px;
-    font-size: 25px;
-    text-align: center;
-    color: #000;
-  }
-  
-  /* Greeting */
-  .user-greeting {
-    position: absolute;
-    top: 80px;
-    left: 30px;
-  }
-  
-  .greeting-text {
-    font-size: 32px;
-    font-weight: 700;
-    color: #000;
-  }
-  
-  .date-text {
-    font-size: 24px;
-    color: #000;
-  }
-  
-  /* Medication Section */
-  .medication-section {
-    position: absolute;
-    top: 173px;
-    left: 132px;
-    width: 529px;
-    height: 775px;
-    background: #F0F0F0;
-    border-radius: 35px;
-    padding: 30px;
-    box-sizing: border-box;
-  }
-  
-  .medication-section h2 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  
-  .med-card {
-    background: #FFFFFF;
-    border-radius: 35px;
-    padding: 20px;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 700;
-    color: #000;
-  }
-  
-  /* Percentage Bar */
-  .percentage-bar {
-    position: absolute;
-    top: 863px;
-    left: 153px;
-    width: 486px;
-    height: 61px;
-    background: #FFFFFF;
-    border: 1px solid #000;
-    border-radius: 35px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    box-sizing: border-box;
-  }
-  
-  .progress-fill {
-    width: 92px;
-    height: 41px;
-    background: #0DF500;
-    opacity: 0.5;
-    border-radius: 35px;
-    margin-right: 15px;
-  }
-  
-  .progress-text {
-    font-size: 32px;
-    color: #000;
-  }
-  
-  /* Right Panel */
   .right-panel {
-    position: absolute;
-    top: 186px;
-    left: 803px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    grid-column: 1;
+    border-left: none;
+    border-top: 1px solid #e1e4e8;
   }
-  
-  .symptom-log,
-  .medical-history,
-  .reminder-tab {
-    width: 550px;
-    border-radius: 35px;
-    padding: 30px;
-    box-sizing: border-box;
-    color: #000;
-    font-size: 24px;
-  }
-  
-  .symptom-log {
-    background: #CACACA;
-  }
-  
-  .reminder-tab {
-    background: #DAC1FF;
-  }
-  
-  .reminder-tab h3,
-  .symptom-log h3,
-  .medical-history h3 {
-    font-size: 32px;
-    font-weight: 700;
-  }
-  
-  .reminder-tab ul,
-  .medical-history ul {
-    padding-left: 20px;
-    margin-top: 10px;
-  }
-  
-  .medical-history {
-    background: #D9D9D9;
-  }
+}
