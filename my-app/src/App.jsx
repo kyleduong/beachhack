@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -33,14 +34,9 @@ function App() {
   // Render the data when it's available
   return (
     
-    <div>
-      <h1>Flask API Data</h1>
-      <p>Name: {data.Name}</p>
-      <p>Age: {data.Age}</p>
-      <p>Date: {data.Date}</p>
-      <p>Programming Language: {data.programming}</p>
-      <button> Click me to add another user</button>
-    </div>
+<div className="position-fixed top-0 start-0 mt-3 me-3">
+  <h1>MedTrack</h1>
+</div>
       
   );
 }
