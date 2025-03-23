@@ -1,5 +1,5 @@
 from config import app, db
-from models import User, Contact
+from models import MedicationRecord, UserAccount
 
 with app.app_context():
     db.create_all()

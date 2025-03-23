@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
-  const [data, setData] = useState(null);  // State to store the response data
-  const [loading, setLoading] = useState(true);  // State to track loading status
-  const [error, setError] = useState(null);  // State to handle any errors
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Make the GET request to Flask API
-    axios.get('http://localhost:5173/data')
+    axios.get('http://localhost:5000/medicine')
       .then(response => {
-        setData(response.data);  // Store the response data
-        setLoading(false);  // Set loading to false after data is received
+        setData(response.data);
+        setLoading(false);
       })
       .catch(err => {
-        setError('Error fetching data');  // Handle error
+        setError('Error fetching data');
         setLoading(false);
       });
-  }, []);  // Empty dependency array means this effect runs once when the component mounts
+  }, []);
 
   // If still loading, show a loading message
   if (loading) {
@@ -33,11 +32,14 @@ function App() {
 
   // Render the data when it's available
   return (
-    
-<div className="position-fixed top-0 start-0 mt-3 me-3">
-  <h1>MedTrack</h1>
-</div>
-      
+    <div className="position-fixed top-0 start-0 mt-3 me-3">
+      <h1>MedTrack</h1>
+      {data && (
+        <div>
+          <p>Welcome to MedTrack - {data.Date}</p>
+        </div>
+      )}
+    </div>
   );
 }
 
