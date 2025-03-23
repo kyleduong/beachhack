@@ -9,9 +9,9 @@ const Features = () => {
     <div className="features-container">
       <div className="features-header">
         <h2 className="features-title instrument-sans-bold">
-          Stay in Control of Your <span className="highlight">Medications</span> with Ease
+          Stay in Control of Your  <span className="highlight">&nbsp;Medications </span> &nbsp;with Ease
         </h2>
-        <div className="title-underline"></div>
+ 
         <p className="features-description inter-light-text">
           Managing prescriptions should be simple. Our app tracks your medications,
           schedules, and interactions in one place, with smart reminders and side effect

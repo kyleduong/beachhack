@@ -38,7 +38,7 @@ const FeaturesHighlights = () => {
       
       <div className="cta-section">
         <h2 className="cta-title instrument-sans-bold">
-          Ready to Test out  <span className="highlight">  MedTrack</span>?
+          Ready to Test out  <span className="highlight"> &nbsp;MedTrack</span>?
         </h2>
         <p className="cta-description inter-light-text">
           Ready to take control of your medication? Start now and stay on track<br />
