@@ -22,3 +22,23 @@ class Contact(db.Model):
 
     def __repr__(self):
         return f"<Contact {self.firstName} {self.lastName}>"
+    
+# Database Models
+class Patient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    medications = db.relationship('Medication', backref='patient', lazy=True)
+
+class Medication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    medication_name = db.Column(db.String(100), nullable=False)
+    prescription_provider = db.Column(db.String(100), nullable=False)
+    total_dosage = db.Column(db.String(100), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
+
+    def to_dict(self):
+        return {
+            'medication_name': self.medication_name,
+            'prescription_provider': self.prescription_provider,
+            'total_dosage': self.total_dosage
+        }
