@@ -4,7 +4,7 @@ import "./Dashboard.css";
 
 export default function MedTrackDashboard() {
   // State for user data and medications
-  const [userData, setUserData] = useState({ name: "User", id: null });
+  const [userData, setUserData] = useState({ name: "User" });
   const [medications, setMedications] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [completionPercentage, setCompletionPercentage] = useState(0);
@@ -34,15 +34,15 @@ export default function MedTrackDashboard() {
     const date = new Date();
     setCurrentDate(date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }));
     
-    // Fetch user data
+    // Mock user data - in production you would fetch this from your API
     const fetchUserData = async () => {
       try {
-        // In a production environment, get the logged-in user
+        // Replace with actual API call to get current user
         // const response = await axios.get("http://localhost:5000/current_user");
         // setUserData(response.data);
         
-        // For now, using mock data
-        setUserData({ name: "Lebron", id: 1 });
+        // Using mock data for now
+        setUserData({ name: "Lebron" });
         
         // Then fetch medications for this user
         fetchMedications();
@@ -57,76 +57,39 @@ export default function MedTrackDashboard() {
   // Fetch medications for current user
   const fetchMedications = async () => {
     try {
-      // In production, fetch user's medications from the database
-      const response = await axios.get(`http://localhost:5000/users/${userData.id}`);
+      // In production replace with actual call to get user's medications
+      // const response = await axios.get(`http://localhost:5000/user_medications/${userData.id}`);
+      // setMedications(response.data);
       
-      if (response.data && response.data.medications) {
-        setMedications(response.data.medications);
-      } else {
-        // Fallback to mock data if needed
-        const response = await axios.get("http://localhost:5000/medicine");
-        
-        // If that fails too, use static data
-        if (!response.data) {
-          const mockMeds = [
-            {
-              medication_name: "Ibuprofen",
-              dosage: "2 pills",
-              doctor_name: "Dr. Smith",
-              days_needed: 7,
-              status: "upcoming"
-            },
-            {
-              medication_name: "Ache Cream",
-              dosage: "6 mL",
-              doctor_name: "Dr. Johnson",
-              days_needed: 14,
-              status: "taken"
-            },
-            {
-              medication_name: "Pepto Bismol",
-              dosage: "30 mL",
-              doctor_name: "Dr. Williams",
-              days_needed: 3,
-              status: "missed"
-            }
-          ];
-          setMedications(mockMeds);
+      // Mock data - in production, fetch from your API
+      const mockMeds = [
+        {
+          medication_name: "Ibuprofen",
+          dosage: "2 pills",
+          time: "2:30 P.M",
+          status: "upcoming"
+        },
+        {
+          medication_name: "Ache Cream",
+          dosage: "6 mL",
+          time: "12:05 P.M",
+          status: "taken"
+        },
+        {
+          medication_name: "Pepto Bismol",
+          dosage: "30 mL",
+          time: "8:00 A.M",
+          status: "missed"
         }
-      }
+      ];
+      
+      setMedications(mockMeds);
       
       // Calculate completion percentage
-      const taken = medications.filter(med => med.status === "taken").length;
-      const total = medications.length;
-      setCompletionPercentage(total > 0 ? Math.round((taken / total) * 100) : 0);
+      const taken = mockMeds.filter(med => med.status === "taken").length;
+      setCompletionPercentage(Math.round((taken / mockMeds.length) * 100));
     } catch (error) {
       console.error("Error fetching medications:", error);
-    }
-  };
-  
-  // Handle marking medication as taken
-  const handleMarkAsTaken = async (medicationId, index) => {
-    try {
-      // In production, update the medication status in the database
-      // await axios.put(`http://localhost:5000/medications/${medicationId}`, {
-      //   status: "taken"
-      // });
-      
-      // For now, update the local state
-      const updatedMedications = [...medications];
-      updatedMedications[index] = {
-        ...updatedMedications[index],
-        status: updatedMedications[index].status === "taken" ? "upcoming" : "taken"
-      };
-      
-      setMedications(updatedMedications);
-      
-      // Recalculate completion percentage
-      const taken = updatedMedications.filter(med => med.status === "taken").length;
-      const total = updatedMedications.length;
-      setCompletionPercentage(total > 0 ? Math.round((taken / total) * 100) : 0);
-    } catch (error) {
-      console.error("Error updating medication status:", error);
     }
   };
   
@@ -243,39 +206,14 @@ export default function MedTrackDashboard() {
       <div className="medication-section">
         <h2>Today's Medications:</h2>
 
-        {medications.length > 0 ? (
-          medications.map((med, index) => (
-            <div key={index} className={`med-card ${med.status || 'upcoming'}`}>
-              <div className="med-card-header">
-                <h3>{med.medication_name}</h3>
-                <button 
-                  className={`checkmark-button ${med.status === 'taken' ? 'checked' : ''}`}
-                  onClick={() => handleMarkAsTaken(med.id, index)}
-                >
-                  {med.status === 'taken' ? '✓' : '○'}
-                </button>
-              </div>
-              <div className="med-card-content">
-                <div className="med-info">
-                  <p><strong>Dosage:</strong> {med.dosage}</p>
-                  <p><strong>Doctor:</strong> {med.doctor_name}</p>
-                  <p><strong>Days to Take:</strong> {med.days_needed}</p>
-                </div>
-                <div className="med-status">
-                  <p>Status {getStatusEmoji(med.status || 'upcoming')} 
-                  ({med.status ? med.status.charAt(0).toUpperCase() + med.status.slice(1) : 'Upcoming'})</p>
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="no-meds-message">
-            <p>No medications scheduled for today.</p>
-            <button className="add-med-button" onClick={() => setShowModal(true)}>
-              Add a Medication
-            </button>
+        {medications.map((med, index) => (
+          <div key={index} className={`med-card ${med.status}`}>
+            <p>{med.medication_name}</p>
+            <p>{med.dosage}</p>
+            <p>{med.time}</p>
+            <p>Status {getStatusEmoji(med.status)} ({med.status.charAt(0).toUpperCase() + med.status.slice(1)})</p>
           </div>
-        )}
+        ))}
 
         <div className="percentage-bar">
           <div 
@@ -297,27 +235,19 @@ export default function MedTrackDashboard() {
 
         <div className="reminder-tab">
           <h3>REMINDER:</h3>
-          <p>You have <strong>{medications.filter(med => med.status !== "taken").length}</strong> remaining medications needed to be taken</p>
+          <p>You have <strong>{medications.filter(med => med.status === "upcoming").length}</strong> remaining medications needed to be taken</p>
           <h4>Upcoming Medications</h4>
           <ul>
-            {medications.filter(med => med.status === "upcoming").slice(0, 3).map((med, index) => (
-              <li key={index}>{med.medication_name} - {med.dosage}</li>
-            ))}
-            {medications.filter(med => med.status === "upcoming").length === 0 && (
-              <li>No upcoming medications</li>
-            )}
+            <li>1/31: Viagra</li>
+            <li>2/20: Begin Ozempic</li>
           </ul>
         </div>
 
         <div className="medical-history">
           <h3>Medical History</h3>
           <ul>
-            {medications.filter(med => med.status === "taken").slice(0, 3).map((med, index) => (
-              <li key={index}>{med.medication_name} - {med.dosage}</li>
-            ))}
-            {medications.filter(med => med.status === "taken").length === 0 && (
-              <li>No medication history yet</li>
-            )}
+            <li>12/31: Tylenol</li>
+            <li>12/24: Mustard</li>
           </ul>
         </div>
       </div>
