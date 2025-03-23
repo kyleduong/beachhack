@@ -360,8 +360,8 @@ const Dashboard = () => {
               <Calendar size={20} className="section-icon" /> Upcoming Medications
             </h2>
             <ul>
-              <li className="inter-light-text">1/31: Deez</li>
-              <li className="inter-light-text">2/20: Begin Ozempic</li>
+              <li className="inter-light-text">1/31: Tylenol</li>
+              <li className="inter-light-text">2/20: Begin Medicine</li>
             </ul>
           </div>
           
@@ -370,8 +370,8 @@ const Dashboard = () => {
               <FileText size={20} className="section-icon" /> Medical History
             </h2>
             <ul>
-              <li className="inter-light-text">1/31: Deez Nuts</li>
-              <li className="inter-light-text">12/24: Mustard</li>
+              <li className="inter-light-text">1/31: Tylenol</li>
+              <li className="inter-light-text">12/24: Ibruprofen</li>
             </ul>
           </div>
         </div>
