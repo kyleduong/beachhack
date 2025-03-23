@@ -4,14 +4,12 @@ from flask import Flask, request, jsonify, abort
 from config import app, db
 from flask_cors import CORS
 import datetime
-from models import Contact
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import login_manager
-from models import User, Patient, Medication
 from werkzeug.security import check_password_hash, generate_password_hash
+from models import UserAccount, MedicationRecord
 
 # Initialize Flask app
-#app = Flask(__name__)
 CORS(app)
 
 # Get the current date and time
@@ -31,85 +29,48 @@ def get_time():
 # GET all items
 @app.route('/users', methods=['GET'])
 def get_users():
-    #users = User.query.all()
-    return {
-        'Name':"rywoah",
-    }
-    #return jsonify([user.to_dict() for user in users]), 200
+    users = UserAccount.query.all()
+    return jsonify([user.to_dict() for user in users]), 200
 
 # GET a single item by id
-@app.route('/items/<int:item_id>', methods=['GET'])
-def get_item(item_id):
-    item = Contact.query.get_or_404(item_id)
-    return jsonify(item.to_dict()), 200
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = UserAccount.query.get_or_404(user_id)
+    return jsonify(user.to_dict()), 200
 
-# POST create a new item
-@app.route("/medication", methods=["POST"])
-def create_contact():
-    first_name = request.json.get("firstname")
-    last_name = request.json.get("lastName")
-    email = request.json.get("email")
-
-    if not first_name or not last_name or not email:
-        return (
-            jsonify({"message": "You must include a first name, last name and email"}),
-            400,
-        )
-
-    new_contact = Contact(first_name=first_name, last_name=last_name, email=email)
-    try:
-        db.session.add(new_contact)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
-
-    return jsonify({"message": "User created!"}), 201
-
-"""
-# PUT update an existing item
-@app.route('/items/<int:item_id>', methods=['PUT'])
-def update_item(item_id):
-    item = Contact.query.get_or_404(item_id)
-    if not request.json:
-        abort(400, description="Missing JSON in request")
-    item.name = request.json.get('name', item.name)
-    item.description = request.json.get('description', item.description)
-    db.session.commit()
-    return jsonify(item.to_dict()), 200
-
-# DELETE an item
-@app.route('/items/<int:item_id>', methods=['DELETE'])
-def delete_item(item_id):
-    item = Contact.query.get_or_404(item_id)
-    db.session.delete(item)
-    db.session.commit()
-    return jsonify({"message": "Item deleted"}), 200
-"""
-
-# Run the Flask app
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    print("Running the Flask app...") 
-    app.run(debug=True)
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-# Endpoint to search for a patient's medications by name
+# Endpoint to search for medications by medication name
 @app.route('/search', methods=['GET'])
 def search_medications():
-    patient_name = request.args.get('name')
-    if not patient_name:
-        return jsonify({'error': 'Patient name is required'}), 400
+    medication_name = request.args.get('name')
+    if not medication_name:
+        return jsonify({'error': 'Medication name is required'}), 400
 
-    patient = Patient.query.filter_by(name=patient_name).first()
-    if not patient:
-        return jsonify({'error': 'Patient not found'}), 404
+    try:
+        # Print debugging information
+        print(f"Searching for medication: {medication_name}")
+        
+        # Find medications by medication name (using LIKE for partial matches)
+        medications = MedicationRecord.query.filter(
+            MedicationRecord.medication_name.ilike(f'%{medication_name}%')
+        ).all()
+        
+        # Print how many results found
+        print(f"Found {len(medications)} results")
+        
+        if not medications:
+            return jsonify({
+                'medication_search': medication_name,
+                'results': []
+            }), 200  # Return 200 with empty array instead of 404
 
-    medications = [med.to_dict() for med in patient.medications]
-    return jsonify({'patient': patient.name, 'medications': medications}), 200
+        return jsonify({
+            'medication_search': medication_name, 
+            'results': [med.to_dict() for med in medications]
+        }), 200
+        
+    except Exception as e:
+        print(f"Search error: {str(e)}")
+        return jsonify({'error': f'Search failed: {str(e)}'}), 500
 
 # Endpoint to add a new medication for a patient
 @app.route('/medications', methods=['POST'])
@@ -118,22 +79,25 @@ def add_medication():
     # Expecting the following keys in the JSON payload
     patient_name = data.get('patient_name')
     medication_name = data.get('medication_name')
-    prescription_provider = data.get('prescription_provider')
-    total_dosage = data.get('total_dosage')
+    doctor_name = data.get('doctor_name')
+    dosage = data.get('dosage')
+    days_needed = data.get('days_needed')
 
-    if not all([patient_name, medication_name, prescription_provider, total_dosage]):
+    if not all([patient_name, medication_name, doctor_name, dosage, days_needed]):
         return jsonify({'error': 'Missing required fields'}), 400
 
-    # Find the patient by name
-    patient = Patient.query.filter_by(name=patient_name).first()
-    if not patient:
+    # Find the user account by patient name
+    user_account = UserAccount.query.filter_by(patient_name=patient_name).first()
+    if not user_account:
         return jsonify({'error': 'Patient not found'}), 404
 
-    new_med = Medication(
+    new_med = MedicationRecord(
+        patient_name=patient_name,
         medication_name=medication_name,
-        prescription_provider=prescription_provider,
-        total_dosage=total_dosage,
-        patient_id=patient.id
+        doctor_name=doctor_name,
+        dosage=dosage,
+        days_needed=days_needed,
+        user_account_id=user_account.id
     )
     db.session.add(new_med)
     db.session.commit()
@@ -145,19 +109,39 @@ def add_medication():
 
 @app.route('/create', methods=['POST'])
 def create_user():
-    if not request.json or 'userName' not in request.json or 'password' not in request.json:
-        abort(400, description="Missing username or password")
+    if not request.json or 'userName' not in request.json or 'password' not in request.json or 'patientName' not in request.json:
+        abort(400, description="Missing username, password, or patient name")
 
     username = request.json['userName']
     password = request.json['password']
+    patient_name = request.json['patientName']
 
     # Check for existing user
-    if User.query.filter_by(username=username).first():
+    if UserAccount.query.filter_by(username=username).first():
         return jsonify({'message': 'User already exists'}), 409
 
+    # Check for existing patient name
+    if UserAccount.query.filter_by(patient_name=patient_name).first():
+        return jsonify({'message': 'Patient name already exists'}), 409
+
     hashed_password = generate_password_hash(password)
-    new_user = User(username=username, password=hashed_password)
+    new_user = UserAccount(
+        username=username, 
+        password=hashed_password, 
+        patient_name=patient_name
+    )
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify(new_user.to_dict()), 201
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserAccount.query.get(int(user_id))
+
+# Run the Flask app
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    print("Running the Flask app...") 
+    app.run(debug=True)
