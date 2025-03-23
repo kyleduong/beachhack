@@ -7,7 +7,7 @@ import datetime
 from models import Contact
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from config import login_manager
-from models import User
+from models import User, Patient, Medication
 from werkzeug.security import check_password_hash
 
 # Initialize Flask app

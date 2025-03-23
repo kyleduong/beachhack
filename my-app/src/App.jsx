@@ -39,9 +39,9 @@ function App() {
       <p>Age: {data.Age}</p>
       <p>Date: {data.Date}</p>
       <p>Programming Language: {data.programming}</p>
-      <button onSubmit={}> Click me to add another user</button>
+      <button> Click me to add another user</button>
     </div>
-    
+      
   );
 }
 
