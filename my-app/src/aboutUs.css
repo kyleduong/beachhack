@@ -1,0 +1,129 @@
+/* About Us Full Page Layout */
+.about-container {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    background: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    padding-top: 140px;
+  }
+  
+  .header h2 {
+    position: absolute;
+    width: 510px;
+    height: 77px;
+    left: 446px;
+    top: 110px;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 77px;
+    color: #000000;
+  }
+  
+  .header p {
+    position: absolute;
+    width: 819px;
+    height: 64px;
+    left: 311px;
+    top: 177px;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+  }
+  
+  .header p:last-of-type {
+    position: absolute;
+    width: 698px;
+    height: 39px;
+    left: 359px;
+    top: 213px;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+  }
+  
+  .team-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 80px 120px;
+    padding: 320px 100px 0 100px;
+  }
+  
+  .member-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+    width: 600px;
+  }
+  
+  .member-img {
+    width: 212px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 35px;
+  }
+  
+  .member-card h5 {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    color: #000000;
+  }
+  
+  .role-link {
+    font-size: 16px;
+    color: #758DE2;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .desc {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    margin-bottom: 10px;
+    width: 213px;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+  }
+  
+  .social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease;
+  }
+  
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+  
+  .about-tab {
+    position: absolute;
+    width: 161px;
+    height: 33px;
+    left: 640px;
+    top: 77px;
+    background: #D9D9D9;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .about-tab span {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  /* Navigation bar styles would be similar to the Dashboard CSS and can be reused */
+  
