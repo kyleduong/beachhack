@@ -57,6 +57,23 @@ function Login() {
     setPassword(event.target.value);
   };
 
+// Login function triggered on button click
+const handleLogin = async () => {
+    try {
+        // Replace the URL with your actual login endpoint
+        const response = await axios.post('http://localhost:5000/login', { userName, password });
+        
+        if (response.status === 200) {
+        // Optionally, you can do something with the response (e.g., store a token)
+        // Navigate to another route, such as a dashboard or home page
+        navigate('/users');
+        }
+    } catch (err) {
+        setError('Login failed. Please check your credentials.');
+        console.error(err);
+    }
+};
+
   useEffect(() => {
     // Any side-effects can go here
   }, []);
@@ -75,6 +92,7 @@ function Login() {
         onChange={handlePasswordChange}
         placeholder="password"
       />
+      <button onClick={handleLogin}> login</button>
     </div>
   );
 }

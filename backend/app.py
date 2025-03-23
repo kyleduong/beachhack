@@ -29,10 +29,13 @@ def get_time():
     }
 
 # GET all items
-@app.route('/items', methods=['GET'])
-def get_items():
-    items = Contact.query.all()
-    return jsonify([item.to_dict() for item in items]), 200
+@app.route('/users', methods=['GET'])
+def get_users():
+    #users = User.query.all()
+    return {
+        'Name':"rywoah",
+    }
+    #return jsonify([user.to_dict() for user in users]), 200
 
 # GET a single item by id
 @app.route('/items/<int:item_id>', methods=['GET'])

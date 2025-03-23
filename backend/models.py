@@ -8,8 +8,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)  # Store hashed passwords
 
-    def __repr__(self):
-        return f"<User {self.username}>"
+    def to_dict(self):
+        return {"id": self.id, "name": self.username, "password":self.password}
 
 class Contact(db.Model):
     __tablename__ = 'contacts'
