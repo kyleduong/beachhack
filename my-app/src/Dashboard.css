@@ -1,0 +1,409 @@
+/* Dashboard.css */
+  
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.instrument-sans-bold {
+  font-family: "Instrument Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.inter-light-text {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  background-color: #fff;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.logo-med {
+  color: #a78bfa;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+.nav-link.active {
+  color: #000;
+  font-weight: 600;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sign-up {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+.divider {
+  color: #ccc;
+}
+
+.join-us {
+  text-decoration: none;
+  color: #fff;
+  background-color: #a78bfa;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.greeting-section h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.date {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.medications-counter {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.add-button, .search-button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.search-icon {
+  font-size: 20px;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  display: flex;
+  gap: 30px;
+}
+
+.medications-list {
+  flex: 2;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+/* Medication Cards */
+.medication-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.medication-image {
+  flex: 1;
+  max-width: 150px;
+  margin-right: 20px;
+}
+
+.medication-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.medication-info {
+  flex: 2;
+}
+
+.medication-info h3 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.medication-info p {
+  color: #555;
+  margin-bottom: 3px;
+}
+
+.medication-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 20px;
+}
+
+.status-checkbox {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.status-checkbox.checked {
+  background-color: #000;
+  border-color: #000;
+  color: white;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.status-badge.late {
+  background-color: #fff9db;
+  color: #e6b800;
+}
+
+.clock-icon {
+  margin-right: 5px;
+}
+
+/* Symptoms Form */
+.symptoms-form {
+  background-color: #f3f0ff;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 60px; /* Add padding at the bottom for the submit button */
+}
+
+.symptoms-form h2 {
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+.symptoms-form p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.symptoms-input {
+  width: 100%;
+  height: 100px;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  resize: none;
+  font-size: 16px;
+}
+
+.submit-button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: 500;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* Reminder Section */
+.reminder-section {
+  margin-bottom: 30px;
+  background-color: #FFFFFF;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.reminder-section h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Upcoming Medications */
+.upcoming-medications {
+  margin-bottom: 30px;
+  background-color: #FFFFFF;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.medical-history {
+  background-color: #FFFFFF;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.upcoming-medications h2,
+.medical-history h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.upcoming-medications ul,
+.medical-history ul {
+  padding-left: 20px;
+}
+
+.upcoming-medications li,
+.medical-history li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.section-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 3px;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+}
+
+/* React Bootstrap Modal Custom Styling */
+.custom-modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal-content {
+  border-radius: 15px !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+  background-color: #fff !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid #eee !important;
+  padding: 40px 40px 25px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.modal-body {
+  padding: 40px !important;
+}
+
+.modal-header .btn-close {
+  padding: 0.5rem !important;
+  margin: 0 !important;
+  opacity: 0.5 !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.modal-title {
+  margin: 0 !important;
+  font-size: 24px !important;
+}
+
+/* Override Bootstrap button primary color */
+.btn-primary {
+  background-color: #E3D3FA !important;
+  border-color: #E3D3FA !important;
+  color: #000 !important;
+}
+
+.btn-primary:hover {
+  background-color: #d9c6f7 !important;
+  border-color: #d9c6f7 !important;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(227, 211, 250, 0.5) !important;
+}
+
+/* Input field focus state */
+.form-control:focus {
+  border-color: #E3D3FA !important;
+  box-shadow: 0 0 0 0.25rem rgba(227, 211, 250, 0.25) !important;
+}

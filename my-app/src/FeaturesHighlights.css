@@ -1,0 +1,152 @@
+.feature-highlights-container {
+  width: 100%;
+  padding: 80px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.feature-highlights-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 100px;
+}
+
+.feature-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  flex: 1;
+  max-width: 550px;
+}
+
+.feature-image-inner {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-text {
+  flex: 1;
+  max-width: 550px;
+}
+
+.feature-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: bold;
+}
+
+.feature-description {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #505050;
+}
+
+.cta-section {
+  background-color: #F8F8F8;
+  padding: 80px 40px;
+  text-align: center;
+  border-radius: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.highlight {
+  color: #B997EA;
+}
+
+.cta-description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: #505050;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #B997EA;
+  color: #000;
+  padding: 16px 36px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #A07BD6;
+}
+
+
+@media (max-width: 1024px) {
+  .feature-item {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-highlights-container {
+    padding: 60px 0;
+  }
+  
+  .feature-item, 
+  .feature-item.reverse {
+    flex-direction: column;
+    margin-bottom: 60px;
+    gap: 30px;
+  }
+  
+  .feature-image,
+  .feature-text {
+    max-width: 100%;
+  }
+  
+  .feature-title {
+    font-size: 26px;
+  }
+  
+  .feature-description {
+    font-size: 16px;
+  }
+  
+  .cta-section {
+    padding: 60px 20px;
+  }
+  
+  .cta-title {
+    font-size: 30px;
+  }
+  
+  .cta-description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-highlights-content {
+    padding: 0 20px;
+  }
+  
+  .cta-button {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+}

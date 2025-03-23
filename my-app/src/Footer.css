@@ -1,0 +1,86 @@
+
+.footer-container {
+    width: 100%;
+    padding: 40px 0;
+    border-top: 1px solid #EAEAEA;
+    margin-top: 60px;
+  }
+  
+  .footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .logo-text {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .logo-med {
+    color: #B997EA;
+  }
+  
+  /* Team Section */
+  .footer-team {
+    text-align: center;
+  }
+  
+  .team-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .team-members {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .team-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .team-member {
+    font-size: 16px;
+    color: #505050;
+  }
+  
+ 
+  .hackathon-text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      justify-content: center;
+    }
+    
+    .team-members {
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .team-members {
+      gap: 30px;
+    }
+  }
